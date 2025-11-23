@@ -61,11 +61,49 @@ class ThemeManager:
             }}
             
             /* Override Streamlit default text colors */
-            .stMarkdown, .stText, p, h1, h2, h3, h4, h5, h6, span, div {{
+            .stMarkdown, .stText, p, h1, h2, h3, h4, h5, h6, span, div, label, li, ul, ol {{
                 color: {theme['text']} !important;
             }}
             
-            .stMarkdown h1, .stMarkdown h2, .stMarkdown h3 {{
+            .stMarkdown h1, .stMarkdown h2, .stMarkdown h3, .stMarkdown h4, .stMarkdown h5, .stMarkdown h6 {{
+                color: {theme['text']} !important;
+            }}
+            
+            /* Input fields */
+            input, textarea, select {{
+                background: {theme['surface']} !important;
+                color: {theme['text']} !important;
+                border-color: {theme['border']} !important;
+            }}
+            
+            /* Selectbox, multiselect */
+            [data-baseweb="select"] {{
+                background: {theme['surface']} !important;
+                color: {theme['text']} !important;
+            }}
+            
+            [data-baseweb="select"] * {{
+                color: {theme['text']} !important;
+            }}
+            
+            /* Text input */
+            .stTextInput input {{
+                background: {theme['surface']} !important;
+                color: {theme['text']} !important;
+            }}
+            
+            /* Checkbox */
+            .stCheckbox label {{
+                color: {theme['text']} !important;
+            }}
+            
+            /* Radio */
+            .stRadio label {{
+                color: {theme['text']} !important;
+            }}
+            
+            /* Success/Info/Warning/Error boxes */
+            .stAlert {{
                 color: {theme['text']} !important;
             }}
             
@@ -74,7 +112,7 @@ class ThemeManager:
                 background: linear-gradient(135deg, {theme['primary']} 0%, {theme['secondary']} 100%);
                 padding: 2.5rem;
                 border-radius: 16px;
-                color: white;
+                color: white !important;
                 text-align: center;
                 margin-bottom: 2rem;
                 box-shadow: 0 10px 30px rgba(0,0,0,0.2);
@@ -86,12 +124,14 @@ class ThemeManager:
                 font-weight: 700;
                 margin-bottom: 0.5rem;
                 text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+                color: white !important;
             }}
             
             .main-header p {{
                 font-size: 1.1rem;
                 opacity: 0.95;
                 font-weight: 300;
+                color: white !important;
             }}
             
             /* Cards */
@@ -135,28 +175,28 @@ class ThemeManager:
             
             .score-excellent {{ 
                 background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-                color: white;
+                color: white !important;
             }}
             
             .score-good {{ 
                 background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-                color: white;
+                color: white !important;
             }}
             
             .score-fair {{ 
                 background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-                color: white;
+                color: white !important;
             }}
             
             .score-poor {{ 
                 background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
-                color: white;
+                color: white !important;
             }}
             
             /* Buttons */
             .stButton>button {{
                 background: linear-gradient(135deg, {theme['primary']} 0%, {theme['secondary']} 100%);
-                color: white;
+                color: white !important;
                 border: none;
                 border-radius: 10px;
                 padding: 0.75rem 2rem;
@@ -254,6 +294,14 @@ class ThemeManager:
                 color: {theme['primary']};
             }}
             
+            [data-testid="stMetricLabel"] {{
+                color: {theme['text']} !important;
+            }}
+            
+            [data-testid="stMetricDelta"] {{
+                color: {theme['text']} !important;
+            }}
+            
             /* Animations */
             @keyframes fadeIn {{
                 from {{ opacity: 0; transform: translateY(10px); }}
@@ -279,12 +327,32 @@ class ThemeManager:
             .stCodeBlock {{
                 border-radius: 10px;
                 border: 1px solid {theme['border']};
+                background: {theme['surface']} !important;
+            }}
+            
+            .stCodeBlock code {{
+                color: {theme['text']} !important;
+            }}
+            
+            /* DataFrames */
+            .stDataFrame {{
+                color: {theme['text']} !important;
+            }}
+            
+            .stDataFrame table {{
+                color: {theme['text']} !important;
             }}
             
             /* Info boxes */
             .stAlert {{
                 border-radius: 10px;
                 border-left: 4px solid;
+                background: {theme['card']} !important;
+                color: {theme['text']} !important;
+            }}
+            
+            .stAlert * {{
+                color: {theme['text']} !important;
             }}
             
             /* Dark mode toggle */
@@ -350,7 +418,7 @@ class ThemeManager:
             /* Issue severity badges */
             .severity-critical {{
                 background: {theme['error']};
-                color: white;
+                color: white !important;
                 padding: 0.25rem 0.75rem;
                 border-radius: 12px;
                 font-weight: 600;
@@ -359,7 +427,7 @@ class ThemeManager:
             
             .severity-high {{
                 background: {theme['warning']};
-                color: white;
+                color: white !important;
                 padding: 0.25rem 0.75rem;
                 border-radius: 12px;
                 font-weight: 600;
@@ -368,7 +436,7 @@ class ThemeManager:
             
             .severity-medium {{
                 background: {theme['info']};
-                color: white;
+                color: white !important;
                 padding: 0.25rem 0.75rem;
                 border-radius: 12px;
                 font-weight: 600;
@@ -377,7 +445,7 @@ class ThemeManager:
             
             .severity-low {{
                 background: {theme['success']};
-                color: white;
+                color: white !important;
                 padding: 0.25rem 0.75rem;
                 border-radius: 12px;
                 font-weight: 600;

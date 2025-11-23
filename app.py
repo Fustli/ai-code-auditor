@@ -214,6 +214,10 @@ def create_enhanced_score_chart(results: dict) -> go.Figure:
     categories = list(scores.keys())
     values = list(scores.values())
     
+    # Get theme colors
+    text_color = '#1e293b' if not st.session_state.dark_mode else '#e4e4e4'
+    grid_color = 'rgba(128, 128, 128, 0.2)' if not st.session_state.dark_mode else 'rgba(200, 200, 200, 0.2)'
+    
     fig = go.Figure()
     
     fig.add_trace(go.Scatterpolar(
@@ -231,23 +235,24 @@ def create_enhanced_score_chart(results: dict) -> go.Figure:
             radialaxis=dict(
                 visible=True,
                 range=[0, 10],
-                tickfont=dict(size=12),
-                gridcolor='rgba(128, 128, 128, 0.2)'
+                tickfont=dict(size=12, color=text_color),
+                gridcolor=grid_color
             ),
             angularaxis=dict(
-                tickfont=dict(size=14, weight='bold')
+                tickfont=dict(size=14, weight='bold', color=text_color)
             )
         ),
         showlegend=False,
         height=450,
         title={
             'text': "Code Quality Scores",
-            'font': {'size': 20, 'weight': 'bold'},
+            'font': {'size': 20, 'weight': 'bold', 'color': text_color},
             'x': 0.5,
             'xanchor': 'center'
         },
         paper_bgcolor='rgba(0,0,0,0)',
-        plot_bgcolor='rgba(0,0,0,0)'
+        plot_bgcolor='rgba(0,0,0,0)',
+        font=dict(color=text_color)
     )
     
     return fig
@@ -255,6 +260,9 @@ def create_enhanced_score_chart(results: dict) -> go.Figure:
 def create_issue_distribution_chart(statistics: dict) -> go.Figure:
     """Create a chart showing issue distribution"""
     by_severity = statistics['by_severity']
+    
+    # Get theme colors
+    text_color = '#1e293b' if not st.session_state.dark_mode else '#e4e4e4'
     
     colors = {
         'Critical': '#ef4444',
@@ -274,13 +282,19 @@ def create_issue_distribution_chart(statistics: dict) -> go.Figure:
     ])
     
     fig.update_layout(
-        title="Issues by Severity",
+        title={
+            'text': "Issues by Severity",
+            'font': {'color': text_color}
+        },
         xaxis_title="Severity",
         yaxis_title="Count",
+        xaxis=dict(tickfont=dict(color=text_color), titlefont=dict(color=text_color)),
+        yaxis=dict(tickfont=dict(color=text_color), titlefont=dict(color=text_color)),
         height=300,
         showlegend=False,
         paper_bgcolor='rgba(0,0,0,0)',
-        plot_bgcolor='rgba(0,0,0,0)'
+        plot_bgcolor='rgba(0,0,0,0)',
+        font=dict(color=text_color)
     )
     
     return fig
@@ -763,6 +777,9 @@ def main():
             st.markdown("#### 📊 Score Distribution")
             dist = stats['distribution']
             
+            # Get theme colors
+            text_color = '#1e293b' if not st.session_state.dark_mode else '#e4e4e4'
+            
             fig = go.Figure(data=[
                 go.Bar(
                     x=['Excellent (8-10)', 'Good (6-8)', 'Fair (4-6)', 'Poor (0-4)'],
@@ -772,12 +789,18 @@ def main():
             ])
             
             fig.update_layout(
-                title="Analysis Results Distribution",
+                title={
+                    'text': "Analysis Results Distribution",
+                    'font': {'color': text_color}
+                },
                 xaxis_title="Score Range",
                 yaxis_title="Count",
+                xaxis=dict(tickfont=dict(color=text_color), titlefont=dict(color=text_color)),
+                yaxis=dict(tickfont=dict(color=text_color), titlefont=dict(color=text_color)),
                 height=300,
                 paper_bgcolor='rgba(0,0,0,0)',
-                plot_bgcolor='rgba(0,0,0,0)'
+                plot_bgcolor='rgba(0,0,0,0)',
+                font=dict(color=text_color)
             )
             
             st.plotly_chart(fig, use_container_width=True)
@@ -798,12 +821,19 @@ def main():
                     title='Code Quality Over Time'
                 )
                 
+                # Get theme colors
+                text_color = '#1e293b' if not st.session_state.dark_mode else '#e4e4e4'
+                
                 fig.update_layout(
                     xaxis_title="Time",
                     yaxis_title="Score",
                     height=300,
                     paper_bgcolor='rgba(0,0,0,0)',
-                    plot_bgcolor='rgba(0,0,0,0)'
+                    plot_bgcolor='rgba(0,0,0,0)',
+                    font=dict(color=text_color),
+                    xaxis=dict(tickfont=dict(color=text_color), titlefont=dict(color=text_color)),
+                    yaxis=dict(tickfont=dict(color=text_color), titlefont=dict(color=text_color)),
+                    title=dict(font=dict(color=text_color))
                 )
                 
                 st.plotly_chart(fig, use_container_width=True)
