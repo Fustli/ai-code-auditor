@@ -79,7 +79,12 @@ def render_sidebar():
             help="Choose your AI API provider"
         )
         
-        provider_key = api_provider.lower().replace(" ", "")
+        # Map display name to internal key
+        provider_map = {
+            "openai": "openai",
+            "google gemini": "gemini"
+        }
+        provider_key = provider_map[api_provider.lower()]
         
         if provider_key == "openai":
             api_key = st.text_input(
