@@ -11,6 +11,7 @@ class Config(BaseModel):
     
     # API Configuration
     api_key: str
+    api_provider: str = "openai"  # "openai" or "gemini"
     model: str = "gpt-4o"
     max_tokens: int = 4000
     temperature: float = 0.1
@@ -32,13 +33,25 @@ class Config(BaseModel):
     @classmethod
     def from_env(cls) -> "Config":
         """Create config from environment variables"""
-        api_key = os.getenv("OPENAI_API_KEY")
-        if not api_key:
-            raise ValueError("OPENAI_API_KEY environment variable is required")
+        # Check for API provider
+        api_provider = os.getenv("API_PROVIDER", "openai").lower()
+        
+        # Get appropriate API key
+        if api_provider == "gemini":
+            api_key = os.getenv("GEMINI_API_KEY")
+            if not api_key:
+                raise ValueError("GEMINI_API_KEY environment variable is required when using Gemini")
+            default_model = "gemini-1.5-pro"
+        else:
+            api_key = os.getenv("OPENAI_API_KEY")
+            if not api_key:
+                raise ValueError("OPENAI_API_KEY environment variable is required when using OpenAI")
+            default_model = "gpt-4o"
         
         return cls(
             api_key=api_key,
-            model=os.getenv("OPENAI_MODEL", "gpt-4o"),
+            api_provider=api_provider,
+            model=os.getenv("AI_MODEL", default_model),
             max_tokens=int(os.getenv("MAX_TOKENS", "4000")),
             temperature=float(os.getenv("TEMPERATURE", "0.1"))
         )

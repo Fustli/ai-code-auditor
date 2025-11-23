@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  ai-code-auditor:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ai-code-auditor
+    ports:
+      - "8501:8501"
+    environment:
+      # OpenAI API Configuration
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - OPENAI_MODEL=${OPENAI_MODEL:-gpt-4o}
+      - MAX_TOKENS=${MAX_TOKENS:-4000}
+      - TEMPERATURE=${TEMPERATURE:-0.1}
+      
+      # Streamlit Configuration
+      - STREAMLIT_SERVER_PORT=8501
+      - STREAMLIT_SERVER_ADDRESS=0.0.0.0
+      - STREAMLIT_SERVER_HEADLESS=true
+      - STREAMLIT_BROWSER_GATHER_USAGE_STATS=false
+      - STREAMLIT_THEME_BASE=dark
+    volumes:
+      # Mount local code for development (optional, comment out for production)
+      - ./src:/app/src
+      - ./examples:/app/examples
+      # Persist analysis history
+      - ai-code-auditor-data:/app/data
+    restart: unless-stopped
+    networks:
+      - ai-code-auditor-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8501/_stcore/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+networks:
+  ai-code-auditor-network:
+    driver: bridge
+
+volumes:
+  ai-code-auditor-data:
+    driver: local
