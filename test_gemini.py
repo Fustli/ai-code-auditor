@@ -29,9 +29,42 @@ def test_gemini_api(api_key: str):
         print(f"❌ Failed to configure API: {e}")
         return False
     
+    # List available models first
+    print("\n📋 Checking available models...")
+    try:
+        models = list(genai.list_models())
+        if not models:
+            print("⚠️  No models found. API might not be enabled.")
+            print("\n🔧 ACTION REQUIRED:")
+            print("   Enable the Generative Language API at:")
+            print("   https://console.cloud.google.com/apis/library/generativelanguage.googleapis.com")
+            return False
+        
+        print(f"✓ Found {len(models)} available models:")
+        generate_models = []
+        for m in models:
+            if 'generateContent' in m.supported_generation_methods:
+                generate_models.append(m.name)
+                print(f"  • {m.name}")
+        
+        if not generate_models:
+            print("\n❌ No models support generateContent method")
+            return False
+        
+        # Use the first available model
+        model_name = generate_models[0]
+        print(f"\n🎯 Using model: {model_name}")
+        
+    except Exception as e:
+        print(f"❌ Failed to list models: {e}")
+        print("\n🔧 ACTION REQUIRED:")
+        print("   Enable the Generative Language API at:")
+        print("   https://console.cloud.google.com/apis/library/generativelanguage.googleapis.com")
+        return False
+    
     # Try to create a model
     try:
-        model = genai.GenerativeModel('gemini-1.5-flash')
+        model = genai.GenerativeModel(model_name)
         print("✓ Model created successfully")
     except Exception as e:
         print(f"❌ Failed to create model: {e}")

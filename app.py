@@ -145,8 +145,14 @@ def render_sidebar():
         else:  # Gemini
             model = st.selectbox(
                 "Select Model",
-                ["gemini-1.5-pro", "gemini-1.5-flash", "gemini-pro"],
-                help="Choose the Gemini model for analysis",
+                [
+                    "models/gemini-2.0-flash",  # Latest fast model
+                    "models/gemini-2.5-flash",
+                    "models/gemini-2.5-pro",
+                    "models/gemini-flash-latest",
+                    "models/gemini-pro-latest",
+                ],
+                help="Choose the Gemini model for analysis (use models/ prefix for v1beta API)",
                 label_visibility="collapsed"
             )
         

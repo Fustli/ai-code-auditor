@@ -41,7 +41,7 @@ class Config(BaseModel):
             api_key = os.getenv("GEMINI_API_KEY")
             if not api_key:
                 raise ValueError("GEMINI_API_KEY environment variable is required when using Gemini")
-            default_model = "gemini-1.5-pro"
+            default_model = "models/gemini-2.0-flash"  # Use v1beta API naming
         else:
             api_key = os.getenv("OPENAI_API_KEY")
             if not api_key:
