@@ -3,15 +3,17 @@ version: '3.8'
 services:
   ai-code-auditor:
     build:
-      context: .
-      dockerfile: Dockerfile
+      context: ..
+      dockerfile: scripts/Dockerfile
     container_name: ai-code-auditor
     ports:
       - "8501:8501"
     environment:
-      # OpenAI API Configuration
+      # AI API Configuration (supports OpenAI and Gemini)
+      - API_PROVIDER=${API_PROVIDER:-openai}
       - OPENAI_API_KEY=${OPENAI_API_KEY}
-      - OPENAI_MODEL=${OPENAI_MODEL:-gpt-4o}
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - AI_MODEL=${AI_MODEL:-gpt-4o}
       - MAX_TOKENS=${MAX_TOKENS:-4000}
       - TEMPERATURE=${TEMPERATURE:-0.1}
       
@@ -23,8 +25,8 @@ services:
       - STREAMLIT_THEME_BASE=dark
     volumes:
       # Mount local code for development (optional, comment out for production)
-      - ./src:/app/src
-      - ./examples:/app/examples
+      - ../src:/app/src
+      - ../examples:/app/examples
       # Persist analysis history
       - ai-code-auditor-data:/app/data
     restart: unless-stopped

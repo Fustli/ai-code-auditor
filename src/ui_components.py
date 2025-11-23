@@ -71,27 +71,56 @@ class ThemeManager:
             
             /* Input fields */
             input, textarea, select {{
-                background: {theme['surface']} !important;
+                background-color: {theme['surface']} !important;
                 color: {theme['text']} !important;
                 border: 1px solid {theme['border']} !important;
             }}
             
+            /* Override Streamlit's input backgrounds */
+            input[type="text"],
+            input[type="password"],
+            input[type="number"],
+            input[type="email"],
+            textarea {{
+                background-color: {theme['surface']} !important;
+                color: {theme['text']} !important;
+                border: 1px solid {theme['border']} !important;
+            }}
+            
+            /* Force all input wrapper divs to use theme background */
+            .stTextInput > div,
+            .stTextInput > div > div,
+            .stNumberInput > div,
+            .stNumberInput > div > div,
+            .stTextArea > div,
+            .stTextArea > div > div {{
+                background-color: transparent !important;
+            }}
+            
             /* Selectbox, multiselect */
             [data-baseweb="select"] {{
-                background: {theme['surface']} !important;
+                background-color: {theme['surface']} !important;
                 color: {theme['text']} !important;
             }}
             
             [data-baseweb="select"] * {{
                 color: {theme['text']} !important;
-                background: {theme['surface']} !important;
+                background-color: {theme['surface']} !important;
+            }}
+            
+            [data-baseweb="select"] > div {{
+                background-color: {theme['surface']} !important;
             }}
             
             /* Text input */
             .stTextInput input {{
-                background: {theme['surface']} !important;
+                background-color: {theme['surface']} !important;
                 color: {theme['text']} !important;
                 border: 1px solid {theme['border']} !important;
+            }}
+            
+            .stTextInput > div > div {{
+                background-color: {theme['surface']} !important;
             }}
             
             .stTextInput input:focus {{
@@ -101,9 +130,13 @@ class ThemeManager:
             
             /* Text area */
             .stTextArea textarea {{
-                background: {theme['surface']} !important;
+                background-color: {theme['surface']} !important;
                 color: {theme['text']} !important;
                 border: 1px solid {theme['border']} !important;
+            }}
+            
+            .stTextArea > div > div {{
+                background-color: {theme['surface']} !important;
             }}
             
             .stTextArea textarea:focus {{
@@ -113,36 +146,105 @@ class ThemeManager:
             
             /* Number input */
             .stNumberInput input {{
-                background: {theme['surface']} !important;
+                background-color: {theme['surface']} !important;
                 color: {theme['text']} !important;
                 border: 1px solid {theme['border']} !important;
             }}
             
+            .stNumberInput > div > div {{
+                background-color: {theme['surface']} !important;
+            }}
+            
             /* Selectbox dropdown */
             [data-baseweb="popover"] {{
-                background: {theme['surface']} !important;
+                background-color: {theme['surface']} !important;
+            }}
+            
+            [data-baseweb="popover"] * {{
+                background-color: {theme['surface']} !important;
             }}
             
             [data-baseweb="menu"] {{
-                background: {theme['surface']} !important;
+                background-color: {theme['surface']} !important;
             }}
             
             [data-baseweb="menu"] li {{
-                background: {theme['surface']} !important;
+                background-color: {theme['surface']} !important;
                 color: {theme['text']} !important;
             }}
             
             [data-baseweb="menu"] li:hover {{
-                background: {theme['hover']} !important;
+                background-color: {theme['hover']} !important;
             }}
             
             /* Checkbox */
+            .stCheckbox {{
+                color: {theme['text']} !important;
+            }}
+            
             .stCheckbox label {{
                 color: {theme['text']} !important;
             }}
             
+            .stCheckbox > label > div {{
+                background-color: {theme['surface']} !important;
+            }}
+            
+            .stCheckbox span {{
+                color: {theme['text']} !important;
+            }}
+            
+            /* Checkbox input box */
+            .stCheckbox input[type="checkbox"] {{
+                background-color: {theme['surface']} !important;
+                border: 1px solid {theme['border']} !important;
+            }}
+            
+            .stCheckbox label {{
+                color: {theme['text']} !important;
+            }}
+            
+            .stCheckbox > label > div {{
+                background-color: {theme['surface']} !important;
+                border: 1px solid {theme['border']} !important;
+            }}
+            
+            .stCheckbox input:checked ~ div {{
+                background-color: {theme['primary']} !important;
+            }}
+            
+            /* Sidebar checkboxes specifically */
+            [data-testid="stSidebar"] .stCheckbox {{
+                color: {theme['text']} !important;
+            }}
+            
+            [data-testid="stSidebar"] .stCheckbox label {{
+                color: {theme['text']} !important;
+            }}
+            
+            [data-testid="stSidebar"] .stCheckbox span {{
+                color: {theme['text']} !important;
+            }}
+            
+            [data-testid="stSidebar"] .stCheckbox > label > div {{
+                background-color: {theme['surface']} !important;
+                border: 1px solid {theme['border']} !important;
+            }}
+            
             /* Radio */
+            .stRadio {{
+                color: {theme['text']} !important;
+            }}
+            
             .stRadio label {{
+                color: {theme['text']} !important;
+            }}
+            
+            .stRadio > label > div {{
+                background-color: {theme['surface']} !important;
+            }}
+            
+            .stRadio span {{
                 color: {theme['text']} !important;
             }}
             
@@ -314,21 +416,44 @@ class ThemeManager:
             
             /* File uploader */
             .stFileUploader {{
-                background: {theme['card']};
+                background-color: {theme['surface']} !important;
                 border-radius: 12px;
                 padding: 1.5rem;
                 border: 2px dashed {theme['border']};
                 transition: all 0.3s;
-                color: {theme['text']};
+                color: {theme['text']} !important;
             }}
             
             .stFileUploader * {{
                 color: {theme['text']} !important;
             }}
             
+            .stFileUploader section {{
+                background-color: {theme['surface']} !important;
+            }}
+            
+            .stFileUploader > div {{
+                background-color: {theme['surface']} !important;
+            }}
+            
+            .stFileUploader [data-testid="stFileUploadDropzone"] {{
+                background-color: {theme['surface']} !important;
+                color: {theme['text']} !important;
+            }}
+            
+            .stFileUploader button {{
+                background-color: {theme['card']} !important;
+                color: {theme['text']} !important;
+                border: 1px solid {theme['border']} !important;
+            }}
+            
+            .stFileUploader label {{
+                color: {theme['text']} !important;
+            }}
+            
             .stFileUploader:hover {{
                 border-color: {theme['primary']};
-                background: {theme['hover']};
+                background-color: {theme['hover']} !important;
             }}
             
             /* Metrics */
@@ -399,17 +524,41 @@ class ThemeManager:
                 color: {theme['text']} !important;
             }}
             
+            /* Toggle/Switch components */
+            [data-testid="stToggle"] {{
+                color: {theme['text']} !important;
+            }}
+            
+            [data-testid="stToggle"] label {{
+                color: {theme['text']} !important;
+            }}
+            
+            [data-testid="stToggle"] span {{
+                color: {theme['text']} !important;
+            }}
+            
             /* Dark mode toggle */
             .theme-toggle {{
                 position: fixed;
                 top: 1rem;
                 right: 1rem;
                 z-index: 999;
-                background: {theme['surface']};
+                background-color: {theme['surface']} !important;
                 border-radius: 25px;
                 padding: 0.5rem 1rem;
                 box-shadow: 0 4px 12px rgba(0,0,0,0.15);
                 border: 1px solid {theme['border']};
+                color: {theme['text']} !important;
+            }}
+            
+            .theme-toggle button {{
+                background-color: {theme['card']} !important;
+                color: {theme['text']} !important;
+                border: 1px solid {theme['border']} !important;
+            }}
+            
+            .theme-toggle * {{
+                color: {theme['text']} !important;
             }}
             
             /* Feature cards */

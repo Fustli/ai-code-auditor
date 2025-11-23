@@ -69,22 +69,20 @@ git clone https://github.com/Fustli/ai-code-auditor.git
 cd ai-code-auditor
 
 # Copy and configure environment
-cp .env.example .env
-# Edit .env and add your OpenAI API key
+cp config/.env.example .env
+# Edit .env and add your API key
 
 # Start with one command!
-./docker-start.sh
+./scripts/docker-start.sh
 
 # OR use Docker Compose directly
-docker-compose up -d
+cd scripts && docker-compose up -d
 
 # OR use Make
-make build && make up
+cd scripts && make build && make up
 ```
 
 **Access at:** `http://localhost:8501`
-
-📖 **[Complete Docker Guide →](DOCKER.md)**
 
 ---
 
@@ -115,8 +113,8 @@ pip install -r requirements.txt
 
 #### 3. Configure AI API (OpenAI or Gemini)
 ```bash
-# Copy the example environment file
-cp .env.example .env
+# Copy the example environment file from config folder
+cp config/.env.example .env
 
 # Edit .env and add your API key
 # Option 1 - OpenAI: Get your key from: https://platform.openai.com/api-keys
@@ -434,15 +432,17 @@ Comprehensive analysis tracking:
 
 ```bash
 # Using the interactive script (easiest)
-./docker-start.sh
+cd scripts && ./docker-start.sh
 
 # Using Docker Compose
+cd scripts
 docker-compose up -d          # Start
 docker-compose down           # Stop
 docker-compose logs -f        # View logs
 docker-compose restart        # Restart
 
 # Using Makefile
+cd scripts
 make build                    # Build image
 make up                       # Start application
 make down                     # Stop application
@@ -463,6 +463,7 @@ make clean                    # Clean up everything
 
 **Container won't start:**
 ```bash
+cd scripts
 docker-compose logs          # Check logs
 docker-compose down -v       # Clean slate
 docker-compose up --build    # Rebuild
@@ -470,12 +471,10 @@ docker-compose up --build    # Rebuild
 
 **Port already in use:**
 ```bash
-# Edit docker-compose.yml and change port
+# Edit scripts/docker-compose.yml and change port
 ports:
   - "8502:8501"  # Use 8502 instead
 ```
-
-📖 **[Complete Docker Documentation →](DOCKER.md)**
 
 ---
 
@@ -503,20 +502,31 @@ ports:
 ### Project Structure
 ```
 ai-code-auditor/
-├── app.py                 # Main application
-├── requirements.txt       # Python dependencies
-├── start.sh              # Startup script
-├── .env.example          # Environment template
-├── src/
-│   ├── __init__.py
-│   ├── config.py         # Configuration management
-│   ├── code_analyzer.py  # AI analysis engine
-│   ├── ui_components.py  # UI theme and components
-│   └── utils.py          # Utility functions
-└── examples/
-    ├── bad_code.py       # Example with issues
-    ├── good_code.py      # Clean code example
-    └── bad_code.js       # JavaScript example
+├── app.py                    # Main application entry point
+├── start.sh                  # Quick startup script
+├── requirements.txt          # Python dependencies
+├── README.md                 # This file
+├── LICENSE                   # MIT License
+├── .env                      # Environment variables (create from config/.env.example)
+├── .gitignore               # Git ignore patterns
+├── src/                     # Source code modules
+│   ├── __init__.py          # Package initializer
+│   ├── config.py            # Configuration management
+│   ├── code_analyzer.py     # AI analysis engine
+│   ├── ui_components.py     # UI theme and components
+│   └── utils.py             # Utility functions
+├── config/                  # Configuration files
+│   └── .env.example         # Environment template
+├── scripts/                 # Deployment & utility scripts
+│   ├── docker-compose.yml   # Docker Compose configuration
+│   ├── Dockerfile           # Docker image definition
+│   ├── .dockerignore        # Docker ignore patterns
+│   ├── docker-start.sh      # Docker startup script
+│   └── Makefile             # Make commands for Docker
+└── examples/                # Code examples for testing
+    ├── bad_code.py          # Python with issues
+    ├── good_code.py         # Clean Python code
+    └── bad_code.js          # JavaScript example
 ```
 
 ### Contributing
@@ -548,21 +558,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **GitHub Issues:** [Report bugs or request features](https://github.com/Fustli/ai-code-auditor/issues)
 - **GitHub Discussions:** [Ask questions and share ideas](https://github.com/Fustli/ai-code-auditor/discussions)
 - **Documentation:** Check this README for detailed information
-
----
-
-## 🎯 Roadmap
-
-- [ ] VSCode extension
-- [ ] GitHub Actions integration
-- [ ] GitLab CI/CD support
-- [ ] Real-time collaboration features
-- [ ] AI-powered code refactoring suggestions
-- [ ] Multi-language translation of reports
-- [ ] Custom rule definition
-- [ ] Team workspace features
-
----
 
 <div align="center">
 

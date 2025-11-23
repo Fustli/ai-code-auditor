@@ -288,8 +288,8 @@ def create_issue_distribution_chart(statistics: dict) -> go.Figure:
         },
         xaxis_title="Severity",
         yaxis_title="Count",
-        xaxis=dict(tickfont=dict(color=text_color), titlefont=dict(color=text_color)),
-        yaxis=dict(tickfont=dict(color=text_color), titlefont=dict(color=text_color)),
+        xaxis=dict(tickfont=dict(color=text_color), title_font=dict(color=text_color)),
+        yaxis=dict(tickfont=dict(color=text_color), title_font=dict(color=text_color)),
         height=300,
         showlegend=False,
         paper_bgcolor='rgba(0,0,0,0)',
@@ -795,8 +795,8 @@ def main():
                 },
                 xaxis_title="Score Range",
                 yaxis_title="Count",
-                xaxis=dict(tickfont=dict(color=text_color), titlefont=dict(color=text_color)),
-                yaxis=dict(tickfont=dict(color=text_color), titlefont=dict(color=text_color)),
+                xaxis=dict(tickfont=dict(color=text_color), title_font=dict(color=text_color)),
+                yaxis=dict(tickfont=dict(color=text_color), title_font=dict(color=text_color)),
                 height=300,
                 paper_bgcolor='rgba(0,0,0,0)',
                 plot_bgcolor='rgba(0,0,0,0)',
@@ -831,8 +831,8 @@ def main():
                     paper_bgcolor='rgba(0,0,0,0)',
                     plot_bgcolor='rgba(0,0,0,0)',
                     font=dict(color=text_color),
-                    xaxis=dict(tickfont=dict(color=text_color), titlefont=dict(color=text_color)),
-                    yaxis=dict(tickfont=dict(color=text_color), titlefont=dict(color=text_color)),
+                    xaxis=dict(tickfont=dict(color=text_color), title_font=dict(color=text_color)),
+                    yaxis=dict(tickfont=dict(color=text_color), title_font=dict(color=text_color)),
                     title=dict(font=dict(color=text_color))
                 )
                 
