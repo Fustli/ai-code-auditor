@@ -57,6 +57,16 @@ class ThemeManager:
             .stApp {{
                 font-family: 'Inter', sans-serif;
                 background: {theme['background']};
+                color: {theme['text']};
+            }}
+            
+            /* Override Streamlit default text colors */
+            .stMarkdown, .stText, p, h1, h2, h3, h4, h5, h6, span, div {{
+                color: {theme['text']} !important;
+            }}
+            
+            .stMarkdown h1, .stMarkdown h2, .stMarkdown h3 {{
+                color: {theme['text']} !important;
             }}
             
             /* Main Header */
@@ -93,6 +103,7 @@ class ThemeManager:
                 margin-bottom: 1rem;
                 box-shadow: 0 4px 6px rgba(0,0,0,0.1);
                 transition: transform 0.2s, box-shadow 0.2s;
+                color: {theme['text']};
             }}
             
             .metric-card:hover {{
@@ -108,6 +119,7 @@ class ThemeManager:
                 margin-bottom: 2rem;
                 border: 1px solid {theme['border']};
                 animation: fadeIn 0.5s ease-in;
+                color: {theme['text']};
             }}
             
             /* Score Badges */
@@ -177,11 +189,12 @@ class ThemeManager:
                 padding: 0.75rem 1.5rem;
                 font-weight: 600;
                 transition: all 0.3s;
+                color: {theme['text']} !important;
             }}
             
             .stTabs [aria-selected="true"] {{
                 background: linear-gradient(135deg, {theme['primary']}, {theme['secondary']});
-                color: white;
+                color: white !important;
             }}
             
             /* Expander */
@@ -190,16 +203,29 @@ class ThemeManager:
                 border-radius: 8px;
                 font-weight: 600;
                 transition: all 0.2s;
+                color: {theme['text']} !important;
             }}
             
             .streamlit-expanderHeader:hover {{
                 background: {theme['hover']};
             }}
             
+            .streamlit-expanderContent {{
+                color: {theme['text']} !important;
+            }}
+            
             /* Sidebar */
             .css-1d391kg, [data-testid="stSidebar"] {{
                 background: {theme['surface']};
                 border-right: 1px solid {theme['border']};
+            }}
+            
+            [data-testid="stSidebar"] * {{
+                color: {theme['text']} !important;
+            }}
+            
+            [data-testid="stSidebar"] .stMarkdown {{
+                color: {theme['text']} !important;
             }}
             
             /* File uploader */
@@ -209,6 +235,11 @@ class ThemeManager:
                 padding: 1.5rem;
                 border: 2px dashed {theme['border']};
                 transition: all 0.3s;
+                color: {theme['text']};
+            }}
+            
+            .stFileUploader * {{
+                color: {theme['text']} !important;
             }}
             
             .stFileUploader:hover {{
@@ -277,6 +308,7 @@ class ThemeManager:
                 border: 1px solid {theme['border']};
                 transition: all 0.3s;
                 cursor: pointer;
+                color: {theme['text']};
             }}
             
             .feature-card:hover {{
@@ -299,6 +331,7 @@ class ThemeManager:
                 border-radius: 12px;
                 text-align: center;
                 border: 1px solid {theme['border']};
+                color: {theme['text']};
             }}
             
             .stat-number {{
