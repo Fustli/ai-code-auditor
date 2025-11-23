@@ -73,7 +73,7 @@ class ThemeManager:
             input, textarea, select {{
                 background: {theme['surface']} !important;
                 color: {theme['text']} !important;
-                border-color: {theme['border']} !important;
+                border: 1px solid {theme['border']} !important;
             }}
             
             /* Selectbox, multiselect */
@@ -84,12 +84,56 @@ class ThemeManager:
             
             [data-baseweb="select"] * {{
                 color: {theme['text']} !important;
+                background: {theme['surface']} !important;
             }}
             
             /* Text input */
             .stTextInput input {{
                 background: {theme['surface']} !important;
                 color: {theme['text']} !important;
+                border: 1px solid {theme['border']} !important;
+            }}
+            
+            .stTextInput input:focus {{
+                border-color: {theme['primary']} !important;
+                box-shadow: 0 0 0 1px {theme['primary']} !important;
+            }}
+            
+            /* Text area */
+            .stTextArea textarea {{
+                background: {theme['surface']} !important;
+                color: {theme['text']} !important;
+                border: 1px solid {theme['border']} !important;
+            }}
+            
+            .stTextArea textarea:focus {{
+                border-color: {theme['primary']} !important;
+                box-shadow: 0 0 0 1px {theme['primary']} !important;
+            }}
+            
+            /* Number input */
+            .stNumberInput input {{
+                background: {theme['surface']} !important;
+                color: {theme['text']} !important;
+                border: 1px solid {theme['border']} !important;
+            }}
+            
+            /* Selectbox dropdown */
+            [data-baseweb="popover"] {{
+                background: {theme['surface']} !important;
+            }}
+            
+            [data-baseweb="menu"] {{
+                background: {theme['surface']} !important;
+            }}
+            
+            [data-baseweb="menu"] li {{
+                background: {theme['surface']} !important;
+                color: {theme['text']} !important;
+            }}
+            
+            [data-baseweb="menu"] li:hover {{
+                background: {theme['hover']} !important;
             }}
             
             /* Checkbox */
