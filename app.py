@@ -467,10 +467,23 @@ def perform_analysis(code: str, filename: str, config: dict) -> dict:
     
     with show_loading_animation("Analyzing your code..."):
         try:
+            # Validate API key format based on provider
+            provider = config.get('api_provider', 'openai')
+            api_key = config['api_key']
+            
+            if provider == 'gemini' and not api_key.startswith('AIza'):
+                st.error("❌ Invalid Gemini API key format. Gemini keys should start with 'AIza'")
+                st.info("Get your key at: https://makersuite.google.com/app/apikey")
+                return None
+            elif provider == 'openai' and not api_key.startswith('sk-'):
+                st.error("❌ Invalid OpenAI API key format. OpenAI keys should start with 'sk-'")
+                st.info("Get your key at: https://platform.openai.com/api-keys")
+                return None
+            
             analyzer_config = Config(
-                api_key=config['api_key'],
+                api_key=api_key,
                 model=config['model'],
-                api_provider=config.get('api_provider', 'openai')
+                api_provider=provider
             )
             analyzer = CodeAnalyzer(analyzer_config)
             
@@ -494,8 +507,33 @@ def perform_analysis(code: str, filename: str, config: dict) -> dict:
             
             return results
             
+        except ValueError as e:
+            st.error(f"❌ Configuration Error: {str(e)}")
+            return None
         except Exception as e:
-            st.error(f"❌ Analysis failed: {str(e)}")
+            error_msg = str(e)
+            st.error(f"❌ Analysis failed: {error_msg}")
+            
+            # Provide helpful hints based on error
+            if "API key not valid" in error_msg or "API_KEY_INVALID" in error_msg:
+                st.warning("⚠️ **API Key Issue Detected**")
+                if provider == 'gemini':
+                    st.info("""
+                    **Gemini API Key Checklist:**
+                    1. ✓ Key starts with 'AIza'
+                    2. ✓ Key copied correctly (no extra spaces)
+                    3. ✓ API enabled at [Google AI Studio](https://makersuite.google.com/app/apikey)
+                    4. ✓ Try creating a new API key if issue persists
+                    """)
+                else:
+                    st.info("""
+                    **OpenAI API Key Checklist:**
+                    1. ✓ Key starts with 'sk-'
+                    2. ✓ Key copied correctly (no extra spaces)
+                    3. ✓ Account has available credits
+                    4. ✓ Key has proper permissions
+                    """)
+            
             return None
 
 def main():

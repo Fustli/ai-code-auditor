@@ -16,6 +16,10 @@ class CodeAnalyzer:
         
         # Initialize the appropriate API client
         if config.api_provider == "gemini":
+            # Validate API key format
+            if not config.api_key or not config.api_key.startswith("AIza"):
+                raise ValueError("Invalid Gemini API key format. Key should start with 'AIza'")
+            
             genai.configure(api_key=config.api_key)
             self.client = None
             self.gemini_model = genai.GenerativeModel(config.model)
