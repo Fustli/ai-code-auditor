@@ -1,0 +1,18 @@
+# LaTeX Build Files
+*.aux
+*.log
+*.out
+*.toc
+*.synctex.gz
+*.fdb_latexmk
+*.fls
+*.bbl
+*.blg
+*.nav
+*.snm
+*.vrb
+*.lof
+*.lot
+
+# Generated PDF (optional - uncomment if you don't want to track PDFs)
+# *.pdf
